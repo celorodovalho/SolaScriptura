@@ -57,7 +57,7 @@ return [
     */
     'commands' => [
         App\Commands\HelpCommand::class,
-//        App\Commands\StartCommand::class,
+        App\Commands\StartCommand::class,
 //        App\Commands\OnlineCommand::class,
 //        App\Commands\DexCommand::class,
 //        App\Commands\GtsCommand::class,

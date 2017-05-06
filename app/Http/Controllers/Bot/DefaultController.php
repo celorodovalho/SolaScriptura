@@ -45,4 +45,11 @@ class DefaultController extends Controller
         dump($updates);
         die;
     }
+
+    public function getMe()
+    {
+        $updates = Telegram::getMe();
+        dump($updates);
+        die;
+    }
 }

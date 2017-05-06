@@ -22,4 +22,5 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/removeWebhook', 'Bot\DefaultController@removeWebhook');
     Route::get('/getUpdates', 'Bot\DefaultController@getUpdates');
     Route::get('/getWebhookInfo', 'Bot\DefaultController@getWebhookInfo');
+    Route::get('/getMe', 'Bot\DefaultController@getMe');
 });
