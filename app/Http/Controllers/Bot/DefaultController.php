@@ -72,8 +72,7 @@ class DefaultController extends Controller
             Telegram::sendMessage([
                 'parse_mode' => 'Markdown',
                 'chat_id' => '-201366561',
-                'text' => "⚠️ 2017-05-02 ➡️ \r\n" .
-                    implode($arrBody)
+                'text' => implode("\r\n", $arrBody)
             ]);
         }
 
