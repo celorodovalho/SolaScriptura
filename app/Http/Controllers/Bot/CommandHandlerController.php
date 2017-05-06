@@ -16,15 +16,15 @@ class CommandHandlerController extends Controller
              * @var $update Telegram\Bot\Objects\Update
              */
             $update = Telegram::commandsHandler(true);
-            $updates = Telegram::getWebhookUpdates();
-            Telegram::sendMessage([
-                'parse_mode' => 'Markdown',
-                'chat_id' => '144068960',
-                'text' => "*CommandHandlerController (update):*\r\n" .
-                    '```text ' .
-                    json_encode($updates) .
-                    '```'
-            ]);
+//            $updates = Telegram::getWebhookUpdates();
+//            Telegram::sendMessage([
+//                'parse_mode' => 'Markdown',
+//                'chat_id' => '144068960',
+//                'text' => "*CommandHandlerController (update):*\r\n" .
+//                    '```text ' .
+//                    json_encode($updates) .
+//                    '```'
+//            ]);
 
 //           throw new TelegramOtherException('Essa opção está em desenvolvimento no momento. Tente novamente outro dia. COMANDSHANDLER');
             $callbackQuery = $update->get('callback_query');

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Bot;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Telegram;
 
 class DefaultController extends Controller
@@ -56,6 +57,20 @@ class DefaultController extends Controller
             'chat_id' => '-201366561',
             'text' => '*UPDATE:*' . "\r\n" .
                 $updates->getId()
+        ]);
+
+        die;
+    }
+
+    public function sendMessage(Request $request)
+    {
+        $arrBody = $request->all();
+
+        Telegram::sendMessage([
+            'parse_mode' => 'Markdown',
+            'chat_id' => '-201366561',
+            'text' => "⚠️ 2017-05-02 ➡️ \r\n".
+                json_encode($arrBody)
         ]);
 
         die;
