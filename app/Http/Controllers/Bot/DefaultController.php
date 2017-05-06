@@ -68,12 +68,12 @@ class DefaultController extends Controller
     {
         $arrBody = $request->all();
         Log::info("Message: ", $arrBody);
-        if (!empty($arrBody['message'])) {
+        if (!empty($arrBody)) {
             Telegram::sendMessage([
                 'parse_mode' => 'Markdown',
                 'chat_id' => '-201366561',
                 'text' => "⚠️ 2017-05-02 ➡️ \r\n" .
-                    implode($arrBody['message'])
+                    implode($arrBody)
             ]);
         }
 
