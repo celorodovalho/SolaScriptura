@@ -1,15 +1,8 @@
 <?php
 namespace App\Http\Controllers\Bot;
 
-use App\Commands\GtsCommand;
-use App\Commands\PokeCommand;
-use App\Commands\StartCommand;
 use App\Http\Controllers\Controller;
-use PokePHP\PokeApi;
-use Symfony\Component\DomCrawler\Crawler;
 use Telegram;
-use Illuminate\Support\Facades\Log;
-use App\FriendCodes;
 
 class DefaultController extends Controller
 {
@@ -50,6 +43,14 @@ class DefaultController extends Controller
     {
         $updates = Telegram::getMe();
         dump($updates);
+
+        Telegram::sendMessage([
+            'parse_mode' => 'Markdown',
+            'chat_id' => '144068960',
+            'text' => '*UPDATE:*' . "\r\n" .
+                json_encode($updates)
+        ]);
+
         die;
     }
 }
