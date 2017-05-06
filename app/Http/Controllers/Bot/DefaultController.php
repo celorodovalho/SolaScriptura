@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Bot;
 
 use App\Http\Controllers\Controller;
@@ -65,13 +66,15 @@ class DefaultController extends Controller
     public function sendMessage(Request $request)
     {
         $arrBody = $request->all();
+        if (!empty($arrBody['message'])) {
+            Telegram::sendMessage([
+                'parse_mode' => 'Markdown',
+                'chat_id' => '-201366561',
+                'text' => "⚠️ 2017-05-02 ➡️ \r\n" .
+                    implode($arrBody['message'])
+            ]);
+        }
 
-        Telegram::sendMessage([
-            'parse_mode' => 'Markdown',
-            'chat_id' => '-201366561',
-            'text' => "⚠️ 2017-05-02 ➡️ \r\n".
-                json_encode($arrBody)
-        ]);
 
         die;
     }
