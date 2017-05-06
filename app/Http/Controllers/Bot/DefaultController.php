@@ -28,12 +28,21 @@ class DefaultController extends Controller
     public function removeWebhook()
     {
         $response = Telegram::removeWebhook();
+        dump($response);
         return 'ok';
     }
 
     public function getUpdates()
     {
         $updates = Telegram::getUpdates();
+        die;
+    }
+
+    public function getWebhookInfo()
+    {
+        Telegram::commandsHandler(true);
+        $updates = Telegram::getWebhookInfo();
+        dump($updates);
         die;
     }
 }

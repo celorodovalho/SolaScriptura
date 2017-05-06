@@ -11,12 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+Route::group(['middleware' => ['web']], function () {
+    Route::get('bot', 'Bot\DefaultController@show');
+    Route::post('/335603197:AAE9-l0gWZa4vtikwOnMftilpbcHh1isy58/webhook', 'Bot\CommandHandlerController@webhook');
+    Route::get('/335603197:AAE9-l0gWZa4vtikwOnMftilpbcHh1isy58/webhook', 'Bot\CommandHandlerController@webhook');
+    Route::get('/setWebhook', 'Bot\DefaultController@setWebhook');
+    Route::get('/removeWebhook', 'Bot\DefaultController@removeWebhook');
+    Route::get('/getUpdates', 'Bot\DefaultController@getUpdates');
+    Route::get('/getWebhookInfo', 'Bot\DefaultController@getWebhookInfo');
 });
-Route::get('bot', 'Bot\DefaultController@show');
-Route::post('/335603197:AAE9-l0gWZa4vtikwOnMftilpbcHh1isy58/webhook','Bot\CommandHandlerController@webhook');
-Route::get('/335603197:AAE9-l0gWZa4vtikwOnMftilpbcHh1isy58/webhook','Bot\CommandHandlerController@webhook');
-Route::get('/setWebhook','Bot\DefaultController@setWebhook');
-Route::get('/removeWebhook','Bot\DefaultController@removeWebhook');
-Route::get('/getUpdates','Bot\DefaultController@getUpdates');
