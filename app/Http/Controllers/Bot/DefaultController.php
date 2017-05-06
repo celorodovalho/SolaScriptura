@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Bot;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Monolog\Logger;
 use Telegram;
 
 class DefaultController extends Controller
@@ -66,6 +67,7 @@ class DefaultController extends Controller
     public function sendMessage(Request $request)
     {
         $arrBody = $request->all();
+        Logger::info("Message: ", $arrBody);
         if (!empty($arrBody['message'])) {
             Telegram::sendMessage([
                 'parse_mode' => 'Markdown',
