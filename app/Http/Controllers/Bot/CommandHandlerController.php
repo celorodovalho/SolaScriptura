@@ -30,52 +30,52 @@ class CommandHandlerController extends Controller
             $callbackQuery = $update->get('callback_query');
             $message = $update->getMessage();
 
-            if ($callbackQuery) {
-                $arguments = explode(' ', $callbackQuery->get('data'));
-                $command = array_shift($arguments);
-                $command = str_replace(['\/', '/'], '', $command);
-                $arguments = implode(' ', $arguments);
-
-                Telegram::sendMessage([
-                    'parse_mode' => 'Markdown',
-                    'chat_id' => '144068960',
-                    'text' => '*LOG:*' . "\r\n" .
-                        '`CMD:` ' . $command . "\r\n" .
-                        '`ARGS:` ' . $arguments . "\r\n"
-                ]);
-                Telegram::sendMessage([
-                    'parse_mode' => 'Markdown',
-                    'chat_id' => '144068960',
-                    'text' => '*UPDATE:*' . "\r\n" .
-                        self::array2ul($update)
-                ]);
-
-                return Telegram::getCommandBus()->execute($command, $arguments, $callbackQuery);
-            }
-            if ($message) {
-                $newMember = $message->getNewChatParticipant();
-                if ($newMember) {
-                    $name = $newMember->getFirstName();
-                    return Telegram::getCommandBus()->execute('start', $name, $update);
-                }
-                $replyToMessage = $message->getReplyToMessage();
-                if ($replyToMessage && strpos($replyToMessage, '[\/') !== false) {
-                    preg_match("/\[[^\]]*\]/", $replyToMessage->getText(), $matches);
-                    $cmd = str_replace(['[', ']'], '', $matches[0]);
-                    if ($cmd) {
-                        $arguments = explode(' ', $cmd);
-                        $command = array_shift($arguments);
-                        $command = str_replace(['\/', '/'], '', $command);
-                        $text = $message->getText();
-                        $text = str_replace(' ', '', $text);
-                        if (!ctype_digit($text)) {
-                            $text = $message->getText();
-                        }
-                        $arguments = implode(' ', $arguments) . ' ' . $text;
-                        return Telegram::getCommandBus()->execute($command, $arguments, $update);
-                    }
-                }
-            }
+//            if ($callbackQuery) {
+//                $arguments = explode(' ', $callbackQuery->get('data'));
+//                $command = array_shift($arguments);
+//                $command = str_replace(['\/', '/'], '', $command);
+//                $arguments = implode(' ', $arguments);
+//
+//                Telegram::sendMessage([
+//                    'parse_mode' => 'Markdown',
+//                    'chat_id' => '144068960',
+//                    'text' => '*LOG:*' . "\r\n" .
+//                        '`CMD:` ' . $command . "\r\n" .
+//                        '`ARGS:` ' . $arguments . "\r\n"
+//                ]);
+//                Telegram::sendMessage([
+//                    'parse_mode' => 'Markdown',
+//                    'chat_id' => '144068960',
+//                    'text' => '*UPDATE:*' . "\r\n" .
+//                        self::array2ul($update)
+//                ]);
+//
+//                return Telegram::getCommandBus()->execute($command, $arguments, $callbackQuery);
+//            }
+//            if ($message) {
+//                $newMember = $message->getNewChatParticipant();
+//                if ($newMember) {
+//                    $name = $newMember->getFirstName();
+//                    return Telegram::getCommandBus()->execute('start', $name, $update);
+//                }
+//                $replyToMessage = $message->getReplyToMessage();
+//                if ($replyToMessage && strpos($replyToMessage, '[\/') !== false) {
+//                    preg_match("/\[[^\]]*\]/", $replyToMessage->getText(), $matches);
+//                    $cmd = str_replace(['[', ']'], '', $matches[0]);
+//                    if ($cmd) {
+//                        $arguments = explode(' ', $cmd);
+//                        $command = array_shift($arguments);
+//                        $command = str_replace(['\/', '/'], '', $command);
+//                        $text = $message->getText();
+//                        $text = str_replace(' ', '', $text);
+//                        if (!ctype_digit($text)) {
+//                            $text = $message->getText();
+//                        }
+//                        $arguments = implode(' ', $arguments) . ' ' . $text;
+//                        return Telegram::getCommandBus()->execute($command, $arguments, $update);
+//                    }
+//                }
+//            }
         } catch (\Exception $e) {
             Telegram::sendMessage([
                 'parse_mode' => 'Markdown',
