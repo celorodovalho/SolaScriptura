@@ -27,11 +27,7 @@ class StartCommand extends Command
         // `replyWith<Message|Photo|Audio|Video|Voice|Document|Sticker|Location|ChatAction>()` all the available methods are dynamically
         // handled when you replace `send<Method>` with `replyWith` and use the same parameters - except chat_id does NOT need to be included in the array.
         $name = $arguments ? ' ' . $arguments : '';
-        $this->replyWithPhoto([
-            'photo' => 'http://marcelorodovalho.com.br/pokemon/oak.png',
-            'caption' => "Olá" . $name . "! Bem-vindo(a) ao Mundo Pokémon! Meu nome é Oak!\r\n As pessoas me chamam de Professor Pokémon. Primeiro: use o comand /help para te ajudar!"
-        ]);
-//        $this->replyWithMessage(['text' => 'Olá! Bem-vindo ao nosso bot! Aqui estão os nossos comandos:']);
+        $this->replyWithMessage(['text' => "Olá" . $name . 'Bem-vindo ao nosso bot! Aqui estão os nossos comandos:']);
 
         // This will update the chat status to typing...
         $this->replyWithChatAction(['action' => Actions::TYPING]);
