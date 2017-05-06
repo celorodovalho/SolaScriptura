@@ -48,7 +48,7 @@ class DefaultController extends Controller
             'parse_mode' => 'Markdown',
             'chat_id' => '144068960',
             'text' => '*UPDATE:*' . "\r\n" .
-                json_encode($updates)
+                $updates->getId()
         ]);
 
         die;
