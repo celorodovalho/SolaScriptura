@@ -51,6 +51,13 @@ class DefaultController extends Controller
                 $updates->getId()
         ]);
 
+        Telegram::sendMessage([
+            'parse_mode' => 'Markdown',
+            'chat_id' => '-201366561',
+            'text' => '*UPDATE:*' . "\r\n" .
+                $updates->getId()
+        ]);
+
         die;
     }
 }
