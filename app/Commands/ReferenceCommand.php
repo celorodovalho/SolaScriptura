@@ -43,7 +43,6 @@ class ReferenceCommand extends Command
             $arguments = str_replace(' ', '+', $arguments);
 
             $response = $this->simpleCurl('https://bible-api.com/' . $arguments, null, ['translation' => 'almeida']);
-            Log::info('DEX-ERRO1: ' . json_encode($response));
 
             if (strlen($response) > 21) {
                 $response = json_decode($response, true);
@@ -73,22 +72,21 @@ class ReferenceCommand extends Command
                 'parse_mode' => 'Markdown',
                 'text' => 'Sorry. Try again later.'
             ]);
-            $response = Telegram::sendMessage([
-                'parse_mode' => 'Markdown',
-                'chat_id' => '144068960',
-                'text' => $e->getMessage()/* . "\r\n" .
-                    $e->getFile() . "\r\n" .
-                    $e->getLine() . "\r\n"*/
-            ]);
+
             Log::info('DEX-ERRO1: ' . json_encode($e->getMessage()));
             Log::info('DEX-ERRO2: ' . $e->getTraceAsString());
         }
 
     }
 
+    /**
+     * @param $url
+     * @param array $post
+     * @param array $get
+     * @return mixed
+     */
     public function simpleCurl($url, $post = array(), $get = array())
     {
-        Log::info('DEX-ERRO3: ' . $url);
         $url = explode('?', $url, 2);
         if (count($url) === 2) {
             $temp_get = array();
@@ -96,7 +94,6 @@ class ReferenceCommand extends Command
             $get = array_merge($get, $temp_get);
         }
         $url = $url[0] . ($get ? '?' . http_build_query($get) : '');
-        Log::info('DEX-ERRO4: ' . $url);
         $ch = curl_init($url);
 
         if ($post) {
