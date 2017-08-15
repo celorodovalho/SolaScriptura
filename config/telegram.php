@@ -56,7 +56,7 @@ return [
     |
     */
     'commands' => [
-        App\Commands\We::class,
+        App\Commands\WelcomeCommand::class,
         App\Commands\HelpCommand::class,
         App\Commands\StartCommand::class,
         App\Commands\ReferenceCommand::class,
