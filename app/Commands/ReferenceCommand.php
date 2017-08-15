@@ -40,6 +40,7 @@ class ReferenceCommand extends Command
             }
 
             $response = $this->simpleCurl('https://bible-api.com/' . $arguments, null, ['translation' => 'almeida']);
+            Log::info('DEX-ERRO1: ' . json_encode($response));
 
             if (strlen($response) > 21) {
                 $response = json_decode($response, true);
