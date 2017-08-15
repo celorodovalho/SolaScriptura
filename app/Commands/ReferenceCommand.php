@@ -96,8 +96,9 @@ class ReferenceCommand extends Command
             parse_str($url[1], $temp_get);
             $get = array_merge($get, $temp_get);
         }
-
-        $ch = curl_init($url[0] . ($get ? '?' . http_build_query($get) : ''));
+        $url = $url[0] . ($get ? '?' . http_build_query($get) : '');
+        Log::info('DEX-ERRO4: ' . $url);
+        $ch = curl_init($url);
 
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
