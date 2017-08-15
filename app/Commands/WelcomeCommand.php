@@ -7,7 +7,7 @@ use Telegram\Bot\Commands\Command;
 /**
  * Class HelpCommand.
  */
-class HelpCommand extends Command
+class WelcomeCommand extends Command
 {
     /**
      * @var string Command Name

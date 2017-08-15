@@ -55,7 +55,7 @@ class ReferenceCommand extends Command
 
             $return = ['*' . $response['reference'] . '*' . "\r\n"];
             foreach ($response['verses'] as $verse) {
-                $return[] = '*' . $verse['verse'] . ')* ' . trim($verse['text']);
+                $return[] = '*' . $verse['verse'] . ')* ' . trim($verse['text']) . "\r\n";
             }
 
             $this->replyWithMessage([
