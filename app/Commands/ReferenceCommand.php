@@ -100,8 +100,11 @@ class ReferenceCommand extends Command
         Log::info('DEX-ERRO4: ' . $url);
         $ch = curl_init($url);
 
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
+        if ($post) {
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
+        }
+
         curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         return curl_exec($ch);
