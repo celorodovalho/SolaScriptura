@@ -16,8 +16,8 @@
 //});
 Route::group(['middleware' => ['web']], function () {
     Route::get('bot', 'Bot\DefaultController@show');
-    Route::post('/335603197:AAE9-l0gWZa4vtikwOnMftilpbcHh1isy58/webhook', 'Bot\CommandHandlerController@webhook');
-    Route::get('/335603197:AAE9-l0gWZa4vtikwOnMftilpbcHh1isy58/webhook', 'Bot\CommandHandlerController@webhook');
+    Route::post('/344822354:AAFqc7bxHRAiP--wV7u2a-aCWVT026ceiUM/webhook', 'Bot\CommandHandlerController@webhook');
+    Route::get('/344822354:AAFqc7bxHRAiP--wV7u2a-aCWVT026ceiUM/webhook', 'Bot\CommandHandlerController@webhook');
     Route::get('/setWebhook', 'Bot\DefaultController@setWebhook');
     Route::get('/removeWebhook', 'Bot\DefaultController@removeWebhook');
     Route::get('/getUpdates', 'Bot\DefaultController@getUpdates');
