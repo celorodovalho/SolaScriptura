@@ -17,8 +17,7 @@ class ReferenceCommand extends Command
     /**
      * @var string Command Description
      */
-    protected $description = 'Informe a referencia, ex: Joao 3:16-17' . "\r\n" .
-    '[/ref]';
+    protected $description = 'Informe a referencia, ex: Joao 3:16-17';
 
     /**
      * @inheritdoc
