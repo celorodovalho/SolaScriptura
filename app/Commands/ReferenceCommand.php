@@ -17,7 +17,8 @@ class ReferenceCommand extends Command
     /**
      * @var string Command Description
      */
-    protected $description = "Search Pokémon by name or ID";
+    protected $description = 'Informe a referencia, ex: Joao 3:16-17' . "\r\n" .
+    '[/ref]';
 
     /**
      * @inheritdoc
@@ -39,6 +40,8 @@ class ReferenceCommand extends Command
                     'reply_markup' => $reply_markup
                 ]);
             }
+
+            $arguments = str_replace(' ', '+', $arguments);
 
             $response = $this->simpleCurl('https://bible-api.com/' . $arguments, null, ['translation' => 'almeida']);
             Log::info('DEX-ERRO1: ' . json_encode($response));
@@ -86,6 +89,7 @@ class ReferenceCommand extends Command
 
     public function simpleCurl($url, $post = array(), $get = array())
     {
+        Log::info('DEX-ERRO3: ' . $url);
         $url = explode('?', $url, 2);
         if (count($url) === 2) {
             $temp_get = array();
