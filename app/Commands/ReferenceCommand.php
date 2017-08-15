@@ -25,6 +25,7 @@ class ReferenceCommand extends Command
     public function handle($arguments)
     {
         try {
+            $arguments = trim($arguments);
             // This will update the chat status to typing...
             $this->replyWithChatAction(['action' => Actions::TYPING]);
             if (empty($arguments)) {
