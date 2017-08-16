@@ -1,3 +1,8 @@
+AddHandler application/x-httpd-php71 .php
+<IfModule mod_suphp.c>
+suPHP_ConfigPath /opt/php71/lib
+</IfModule>
+
 # Disable index view
 Options -Indexes
 
