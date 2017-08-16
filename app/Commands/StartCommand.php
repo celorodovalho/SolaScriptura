@@ -22,15 +22,11 @@ class StartCommand extends Command
      */
     public function handle($arguments)
     {
-        // This will send a message using `sendMessage` method behind the scenes to
-        // the user/chat id who triggered this command.
-        // `replyWith<Message|Photo|Audio|Video|Voice|Document|Sticker|Location|ChatAction>()` all the available methods are dynamically
-        // handled when you replace `send<Method>` with `replyWith` and use the same parameters - except chat_id does NOT need to be included in the array.
         $name = $arguments ? ' ' . $arguments : '';
         $this->replyWithChatAction(['action' => Actions::TYPING]);
 
         $this->replyWithMessage(['text' => "Olá" . $name . '! Bem-vindo ao nosso bot! Aqui estão os nossos comandos:']);
-        $this->replyWithMessage(['text' => json_encode($this->getUpdate())]);
+//        $this->replyWithMessage(['text' => json_encode($this->getUpdate())]);
 
         // This will update the chat status to typing...
 

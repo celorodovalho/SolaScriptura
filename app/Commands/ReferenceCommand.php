@@ -26,17 +26,14 @@ class ReferenceCommand extends Command
     {
         try {
             $arguments = trim($arguments);
-            // This will update the chat status to typing...
             $this->replyWithChatAction(['action' => Actions::TYPING]);
             if (empty($arguments)) {
-                //throw new Telegram\Bot\Exceptions\TelegramOtherException('Você precisa informar o nome ou número do Pokémon, ex: /dex pikachu');
-                $reply_markup = Telegram::forceReply(['selective' => true]);
+                $replyMarkup = Telegram::forceReply(['selective' => true]);
                 return $this->replyWithMessage([
-                    //'parse_mode' => 'Markdown',
                     'text' => 'Informe a referencia, ex: Joao 3:16-17' . "\r\n" .
                         '[/ref]'
                     ,
-                    'reply_markup' => $reply_markup
+                    'reply_markup' => $replyMarkup
                 ]);
             }
 
@@ -59,7 +56,6 @@ class ReferenceCommand extends Command
             $this->replyWithMessage([
                 'parse_mode' => 'Markdown',
                 'text' => implode($return),
-                //'reply_markup' => $reply_markup
             ]);
         } catch (Telegram\Bot\Exceptions\TelegramOtherException $e) {
             $this->replyWithMessage([
@@ -73,10 +69,10 @@ class ReferenceCommand extends Command
                 'text' => 'Sorry. Try again later.'
             ]);
 
-            Log::info('DEX-ERRO1: ' . json_encode($e->getMessage()));
-            Log::info('DEX-ERRO2: ' . $e->getTraceAsString());
+            Log::info('ERRO1: ' . json_encode($e->getMessage()));
+            Log::info('ERRO2: ' . $e->getTraceAsString());
         }
-
+        return null;
     }
 
     /**
@@ -89,20 +85,20 @@ class ReferenceCommand extends Command
     {
         $url = explode('?', $url, 2);
         if (count($url) === 2) {
-            $temp_get = array();
-            parse_str($url[1], $temp_get);
-            $get = array_merge($get, $temp_get);
+            $tempGet = array();
+            parse_str($url[1], $tempGet);
+            $get = array_merge($get, $tempGet);
         }
         $url = $url[0] . ($get ? '?' . http_build_query($get) : '');
-        $ch = curl_init($url);
+        $chr = curl_init($url);
 
         if ($post) {
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
+            curl_setopt($chr, CURLOPT_POST, 1);
+            curl_setopt($chr, CURLOPT_POSTFIELDS, json_encode($post));
         }
 
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        return curl_exec($ch);
+        curl_setopt($chr, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
+        curl_setopt($chr, CURLOPT_RETURNTRANSFER, true);
+        return curl_exec($chr);
     }
 }

@@ -7,20 +7,34 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Telegram;
 
+/**
+ * Class DefaultController
+ * @package App\Http\Controllers\Bot
+ */
 class DefaultController extends Controller
 {
+    /**
+     * @return string
+     */
     public function show()
     {
         return 'ok';
     }
 
+    /**
+     * @return mixed
+     */
     public function setWebhook()
     {
-        $response = Telegram::setWebhook(['url' => 'https://marcelorodovalho.com.br/rodovalhos-bot/public/index.php/335603197:AAE9-l0gWZa4vtikwOnMftilpbcHh1isy58/webhook']);
+//        $response = Telegram::setWebhook(['url' => 'https://*****/'.env('TELEGRAM_BOT_TOKEN').'/webhook']);
+        $response = Telegram::setWebhook(['url' => secure_url('webhook')]);
         //$update = Telegram::commandsHandler(true);
         return $response;
     }
 
+    /**
+     * @return string
+     */
     public function removeWebhook()
     {
         $response = Telegram::removeWebhook();
@@ -31,6 +45,7 @@ class DefaultController extends Controller
     public function getUpdates()
     {
         $updates = Telegram::getUpdates();
+        dump($updates);
         die;
     }
 
@@ -44,6 +59,7 @@ class DefaultController extends Controller
 
     public function getMe()
     {
+        dump(secure_url('webhook'));
         $updates = Telegram::getMe();
         dump($updates);
 
@@ -75,8 +91,6 @@ class DefaultController extends Controller
                 'text' => implode("\r\n\r\n", $arrBody)
             ]);
         }
-
-
         die;
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Bot;
 
 use App\Http\Controllers\Controller;
-use Telegram;
 use Illuminate\Support\Facades\Log;
+use Telegram;
 
 /**
  * Class CommandHandlerController
@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Log;
  */
 class CommandHandlerController extends Controller
 {
+    /**
+     * @return string
+     */
     public function webhook()
     {
         try {
@@ -66,8 +69,8 @@ class CommandHandlerController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            Log::info('CMHND-ERRO1: ' . $e);
-            Log::info('CMHND-ERRO2: ' . json_encode($e->getTrace()));
+            Log::info('ERRO4: ' . $e);
+            Log::info('ERRO5: ' . json_encode($e->getTrace()));
         }
 
         return 'ok';

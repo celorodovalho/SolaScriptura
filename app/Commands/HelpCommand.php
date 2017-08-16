@@ -36,17 +36,16 @@ class HelpCommand extends Command
             }
         }
 
-        $reply_markup = Telegram::replyKeyboardMarkup([
+        $replyMarkup = Telegram::replyKeyboardMarkup([
             'keyboard' => [$keys],
             'resize_keyboard' => true,
             'one_time_keyboard' => true
         ]);
 
-//        $this->replyWithMessage(compact('text'));
         $this->replyWithMessage([
             'parse_mode' => 'Markdown',
             'text' => $text,
-            'reply_markup' => $reply_markup
+            'reply_markup' => $replyMarkup
         ]);
     }
 }

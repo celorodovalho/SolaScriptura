@@ -11,13 +11,10 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
 Route::group(['middleware' => ['web']], function () {
     Route::get('bot', 'Bot\DefaultController@show');
-    Route::post('/'.env('TELEGRAM_BOT_TOKEN').'/webhook', 'Bot\CommandHandlerController@webhook');
-    Route::get('/'.env('TELEGRAM_BOT_TOKEN').'/webhook', 'Bot\CommandHandlerController@webhook');
+    Route::post('/' . env('TELEGRAM_BOT_TOKEN') . '/webhook', 'Bot\CommandHandlerController@webhook');
+    Route::get('/' . env('TELEGRAM_BOT_TOKEN') . '/webhook', 'Bot\CommandHandlerController@webhook')->name('webhook');
     Route::get('/setWebhook', 'Bot\DefaultController@setWebhook');
     Route::get('/removeWebhook', 'Bot\DefaultController@removeWebhook');
     Route::get('/getUpdates', 'Bot\DefaultController@getUpdates');
