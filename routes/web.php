@@ -12,6 +12,7 @@
 */
 
 Route::group(['middleware' => ['web']], function () {
+    //BOT
     Route::get('bot', 'Bot\DefaultController@show');
     Route::post('/' . env('TELEGRAM_BOT_TOKEN') . '/webhook', 'Bot\CommandHandlerController@webhook');
     Route::get('/' . env('TELEGRAM_BOT_TOKEN') . '/webhook', 'Bot\CommandHandlerController@webhook')->name('webhook');
@@ -21,4 +22,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/getWebhookInfo', 'Bot\DefaultController@getWebhookInfo');
     Route::get('/getMe', 'Bot\DefaultController@getMe');
     Route::any('/sendMessage', 'Bot\DefaultController@sendMessage');
+
+    //API
+    Route::any('/test', 'Bot\DefaultController@test');
 });

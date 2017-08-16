@@ -93,4 +93,13 @@ class DefaultController extends Controller
         }
         die;
     }
+
+    public function test(Request $request)
+    {
+//        dump(654);die;
+        $book = \App\Verses::find(1)->books()->where('abbrev', 'gn')->first(); //
+//        App\Post::find(1)->comments()->where('title', 'foo')->first();
+        dump($book);
+        die;
+    }
 }
