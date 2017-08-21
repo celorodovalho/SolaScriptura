@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Bot;
 
 use App\Http\Controllers\Controller;
-use App\Providers\Dbt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Telegram;

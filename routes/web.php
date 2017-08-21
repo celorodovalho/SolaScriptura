@@ -25,4 +25,7 @@ Route::group(['middleware' => ['web']], function () {
 
     //API
     Route::any('/test', 'Bot\DefaultController@test');
+    Route::get('/books', function () {
+        return App\Books::where('abbrev', '=', 'gn')->first()->verses()->where('chapter', '=', 1)->get();
+    });
 });

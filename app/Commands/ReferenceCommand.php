@@ -2,6 +2,8 @@
 
 namespace App\Commands;
 
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Log;
 use Telegram;
 use Telegram\Bot\Actions;
@@ -37,9 +39,23 @@ class ReferenceCommand extends Command
                 ]);
             }
 
-            $arguments = str_replace(' ', '+', $arguments);
+            $arguments = explode(' ', $arguments);
+            $book = $arguments[0];
+            $chapter = $arguments[1];
+            $chapter = explode(':', $chapter);
+            $verses = $chapter[1];
+            $chapter = $chapter[0];
 
-            $response = $this->simpleCurl('https://bible-api.com/' . $arguments, null, ['translation' => 'almeida']);
+            $request = Request::create('/api/version/book/chapter/verses', 'GET', array(
+                "version"     => 'nvi',
+                "book"    => $book,
+                "chapter"    => $chapter,
+                "verses" => $verses
+            ));
+
+            $response = Route::dispatch($request);
+
+//            $response = $this->simpleCurl('https://bible-api.com/' . $arguments, null, ['translation' => 'almeida']);
 
             if (strlen($response) > 21) {
                 $response = json_decode($response, true);
