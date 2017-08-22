@@ -3,8 +3,8 @@
 namespace App\Commands;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 use Telegram;
 use Telegram\Bot\Actions;
 use Telegram\Bot\Commands\Command;
