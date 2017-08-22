@@ -1,11 +1,12 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 
 class References extends Controller
 {
-    public function ref ($version, $book, $chapter, $verses)
+    public function ref($version, $book, $chapter, $verses)
     {
         $occurs = \App\Verses::where('version', '=', $version)
             ->where('book', '=', $book)
@@ -29,5 +30,10 @@ class References extends Controller
             $occurs->whereIn('verse', $verseIn->sort()->toArray());
 
         return response()->json($occurs->get());
+    }
+
+    public function books()
+    {
+        return response()->json(\App\Books::where('abbrev', '=', 'gn')->first()->verses()->where('chapter', '=', 1)->get());
     }
 }
