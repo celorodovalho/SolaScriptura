@@ -2,9 +2,7 @@
 
 namespace App\Commands;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Route;
 use Telegram;
 use Telegram\Bot\Actions;
 use Telegram\Bot\Commands\Command;
@@ -46,19 +44,15 @@ class ReferenceCommand extends Command
             $verses = $chapter[1];
             $chapter = $chapter[0];
 
-            $request = Request::create('/api/version/book/chapter/verses', 'GET', array(
-                "version"     => 'nvi',
-                "book"    => $book,
-                "chapter"    => $chapter,
-                "verses" => $verses
-            ));
+            $response = \App\Verses::ref('nvi', $book, $chapter, $verses);
 
-            $response = Route::dispatch($request);
+            Log::info('RESPONSE---->: ' . json_encode($response));
+
             $this->replyWithMessage([
                 'parse_mode' => 'Markdown',
                 'text' => json_encode([$response]),
             ]);
-            Log::info('RESPONSE---->: ' . json_encode($response));
+
 
 //            $response = $this->simpleCurl('https://bible-api.com/' . $arguments, null, ['translation' => 'almeida']);
 

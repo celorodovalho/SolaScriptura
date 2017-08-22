@@ -25,6 +25,6 @@ Route::group(['middleware' => ['web']], function () {
 
     //API
     Route::any('/test', 'Bot\DefaultController@test');
-    Route::get('/books', 'Api\ReferencesController@books');
-    Route::get('/api/{version}/{book}/{chapter}/{verses}', 'Api\ReferencesController@ref');
+//    Route::get('/books', 'Api\ReferencesController@books');
+//    Route::get('/api/{version}/{book}/{chapter}/{verses}', 'Api\ReferencesController@ref');
 });

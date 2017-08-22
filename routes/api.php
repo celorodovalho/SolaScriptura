@@ -17,4 +17,5 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::get('/api/{version}/{book}/{chapter}/{verses}', 'Api\ReferencesController@ref');
+Route::get('/{version}/{book}/{chapter}/{verses}', 'Api\ReferencesController@ref')->name('ref');;
+Route::get('/books', 'Api\ReferencesController@books');
