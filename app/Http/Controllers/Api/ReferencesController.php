@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 
-class References extends Controller
+class ReferencesController extends Controller
 {
     public function ref($version, $book, $chapter, $verses)
     {
