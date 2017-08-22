@@ -54,6 +54,11 @@ class ReferenceCommand extends Command
             ));
 
             $response = Route::dispatch($request);
+            $this->replyWithMessage([
+                'parse_mode' => 'Markdown',
+                'text' => json_encode([$response]),
+            ]);
+            Log::info('RESPONSE---->: ' . json_encode($response));
 
 //            $response = $this->simpleCurl('https://bible-api.com/' . $arguments, null, ['translation' => 'almeida']);
 
