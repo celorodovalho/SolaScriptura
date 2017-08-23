@@ -47,16 +47,6 @@ class ReferenceCommand extends Command
 
             $response = \App\Verses::ref('nvi', $book, $chapter, $verses);
 
-            Log::info('RESPONSE---->: ' . json_encode($response));
-
-//             $this->replyWithMessage([
-//                 'parse_mode' => 'Markdown',
-//                 'text' => json_encode([$response]),
-//             ]);
-
-
-//            $response = $this->simpleCurl('https://bible-api.com/' . $arguments, null, ['translation' => 'almeida']);
-
             if (empty($response)) {
                 throw new Telegram\Bot\Exceptions\TelegramOtherException('Referencia nao encontrada.');
             }
