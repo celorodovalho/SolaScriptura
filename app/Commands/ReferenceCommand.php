@@ -26,6 +26,7 @@ class ReferenceCommand extends Command
     {
         try {
             $arguments = trim($arguments);
+            $versiculo = $arguments;
             $this->replyWithChatAction(['action' => Actions::TYPING]);
             if (empty($arguments)) {
                 $replyMarkup = Telegram::forceReply(['selective' => true]);
@@ -48,24 +49,21 @@ class ReferenceCommand extends Command
 
             Log::info('RESPONSE---->: ' . json_encode($response));
 
-            $this->replyWithMessage([
-                'parse_mode' => 'Markdown',
-                'text' => json_encode([$response]),
-            ]);
+//             $this->replyWithMessage([
+//                 'parse_mode' => 'Markdown',
+//                 'text' => json_encode([$response]),
+//             ]);
 
 
 //            $response = $this->simpleCurl('https://bible-api.com/' . $arguments, null, ['translation' => 'almeida']);
 
-            if (strlen($response) > 21) {
-                $response = json_decode($response, true);
-            } else {
+            if (empty($response)) {
                 throw new Telegram\Bot\Exceptions\TelegramOtherException('Referencia nao encontrada.');
             }
 
-
-            $return = ['*' . $response['reference'] . '*' . "\r\n"];
-            foreach ($response['verses'] as $verse) {
-                $return[] = '*' . $verse['verse'] . ')* ' . trim($verse['text']) . "\r\n";
+            $return = ['*' . $versiculo . '*' . "\r\n"];
+            foreach ($response as $verse) {
+                $return[] = '*' . $verse['verse'] . ')* ' . html_entity_decode(trim($verse['text'])) . "\r\n";
             }
 
             $this->replyWithMessage([

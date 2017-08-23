@@ -30,8 +30,9 @@ class Verses extends Model
 
     public static function ref($version, $book, $chapter, $verses)
     {
-        $occurs = self::where('version', '=', $version)
-            ->where('book', '=', $book)
+        $book = \App\Books::where('name', '=', $book)->orWhere('abbrev', '=', $book)->first();
+        $occurs = $book->verses()->where('version', '=', $version)
+            //->where('book', '=', 'Gênesis')
             ->where('chapter', '=', $chapter);
         $verses = explode(',', $verses);
 
@@ -44,13 +45,14 @@ class Verses extends Model
                 for ($i = $between[0]; $i <= $between[1]; $i++) {
                     $verseIn->push($i);
                 }
-            } else
+            } else {
                 $verseIn->push($verse);
+            }
         }
 
-        if ($verseIn->isNotEmpty())
+        if ($verseIn->isNotEmpty()) {
             $occurs->whereIn('verse', $verseIn->sort()->toArray());
-
+        }
         return $occurs->get();
     }
 
