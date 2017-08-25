@@ -13,6 +13,10 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         $this->call(BooksTableSeeder::class);
-        $this->call(VersesTableSeeder::class);
+        \DB::table('verses')->delete();
+        $this->call(VersesTableAASeeder::class);
+        $this->call(VersesTableACFSeeder::class);
+        $this->call(VersesTableKJVSeeder::class);
+        $this->call(VersesTableNVISeeder::class);
     }
 }
