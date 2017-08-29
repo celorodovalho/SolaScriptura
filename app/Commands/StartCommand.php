@@ -42,8 +42,10 @@ class StartCommand extends Command
         }
 
         // Reply with the commands list
-        $this->replyWithMessage(['text' => $response.' => '.json_encode($arguments)]);
-        $this->replyWithMessage(['text' => $arguments]);
+        $this->replyWithMessage(['text' => $response]);
+
+        $this->replyWithMessage(['text' => json_encode($this->getUpdate())]);
+
 
         // Trigger another command dynamically from within this command
         // When you want to chain multiple commands within one or process the request further.
