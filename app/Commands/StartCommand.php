@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Users;
 use Telegram\Bot\Actions;
 use Telegram\Bot\Commands\Command;
 
@@ -44,7 +45,13 @@ class StartCommand extends Command
         // Reply with the commands list
         $this->replyWithMessage(['text' => $response]);
 
-        $this->replyWithMessage(['text' => json_encode($this->getUpdate())]);
+        /* {"id":144068960,"is_bot":false,"first_name":"Seasky","username":"se45ky","language_code":"pt-BR"} */
+        $user = $this->getUpdate()->getMessage()->getFrom();
+        $newUser = Users::firstOrNew(['telegram_id' => $user->getId()]);
+        $newUser->is_bot = $user->get('is_bot');
+        $newUser->first_name = $user->getFirstName();
+        $newUser->username = $user->getUsername();
+        $newUser->language_code = $user->get('language_code');
 
 
         // Trigger another command dynamically from within this command
