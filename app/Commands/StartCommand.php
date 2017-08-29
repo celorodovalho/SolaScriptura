@@ -52,6 +52,7 @@ class StartCommand extends Command
         $newUser->first_name = $user->getFirstName();
         $newUser->username = $user->getUsername();
         $newUser->language_code = $user->get('language_code');
+        $newUser->save();
 
 
         // Trigger another command dynamically from within this command
