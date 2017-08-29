@@ -45,9 +45,8 @@ class WelcomeCommand extends Command
 //        $this->replyWithMessage(compact('text'));
         $this->replyWithMessage([
             'parse_mode' => 'Markdown',
-            'text' => $text,
+            'text' => $text.' => WELCOME '.json_encode($arguments),
             'reply_markup' => $replyMarkup
         ]);
-        $this->replyWithMessage(['text' => $arguments]);
     }
 }

@@ -42,7 +42,7 @@ class StartCommand extends Command
         }
 
         // Reply with the commands list
-        $this->replyWithMessage(['text' => $response]);
+        $this->replyWithMessage(['text' => $response.' => '.json_encode($arguments)]);
         $this->replyWithMessage(['text' => $arguments]);
 
         // Trigger another command dynamically from within this command
