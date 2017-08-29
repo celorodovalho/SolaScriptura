@@ -48,5 +48,6 @@ class WelcomeCommand extends Command
             'text' => $text,
             'reply_markup' => $replyMarkup
         ]);
+        $this->replyWithMessage(['text' => $arguments]);
     }
 }
