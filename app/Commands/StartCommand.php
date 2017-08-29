@@ -45,14 +45,19 @@ class StartCommand extends Command
         // Reply with the commands list
         $this->replyWithMessage(['text' => $response]);
 
-        /* {"id":144068960,"is_bot":false,"first_name":"Seasky","username":"se45ky","language_code":"pt-BR"} */
-        $user = $this->getUpdate()->getMessage()->getFrom();
-        $newUser = Users::firstOrNew(['telegram_id' => $user->getId()]);
-        $newUser->is_bot = $user->get('is_bot');
-        $newUser->first_name = $user->getFirstName();
-        $newUser->username = $user->getUsername();
-        $newUser->language_code = $user->get('language_code');
-        $newUser->save();
+        try {
+            /* {"id":144068960,"is_bot":false,"first_name":"Seasky","username":"se45ky","language_code":"pt-BR"} */
+            $user = $this->getUpdate()->getMessage()->getFrom();
+            $newUser = Users::firstOrNew(['telegram_id' => $user->getId()]);
+            $newUser->is_bot = $user->get('is_bot');
+            $newUser->first_name = $user->getFirstName();
+            $newUser->username = $user->getUsername();
+            $newUser->language_code = $user->get('language_code');
+            $newUser->save();
+        } catch (\Exception $e) {
+            $this->replyWithMessage(['text' => $e->getMessage()]);
+        }
+
 
 
         // Trigger another command dynamically from within this command
