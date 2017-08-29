@@ -6,7 +6,9 @@ Atualmente o projeto conta com quatro versões da Bíblia Sagrada em Português 
 - Nova Versão Internacional (NVI)
 - Almeida Corrigida e Fiel (ACF)
 - Almeida Revisada Imprensa Bíblica (AA)
-- King James Version (KJV)
+- King James Version (KJV) [English]
+- Basic English (BBE) [English]
+- Reina Valera (RVR) [Español]
 
 ## Como funcionam as licenças e direitos?
 Este projeto é distribuído sob a licença Creative Commons BY-NC. As traduções bíblicas deste projeto são de autoria e propriedade intelectual da Sociedade Bíblica Internacional (NVI), da Sociedade Bíblica Trinitariana (ACF) e da Imprensa Bíblica Brasileira (AA). Todos os direitos reservados aos autores.

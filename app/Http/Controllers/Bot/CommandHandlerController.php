@@ -75,24 +75,4 @@ class CommandHandlerController extends Controller
 
         return 'ok';
     }
-
-    /**
-     * @param $array
-     * @return string
-     */
-    public static function array2ul($array)
-    {
-        if (!is_array($array)) {
-            $array = json_decode(json_encode($array), true);
-        }
-        $out = '';
-        foreach ($array as $key => $elem) {
-            if (!is_array($elem)) {
-                $out .= "`$key:` $elem\r\n";
-            } else {
-                $out .= "```$key:```" . self::array2ul($elem);
-            }
-        }
-        return $out;
-    }
 }

@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(VersesTableACFSeeder::class);
         $this->call(VersesTableKJVSeeder::class);
         $this->call(VersesTableNVISeeder::class);
+        $this->call(VersesTableBBESeeder::class);
     }
 }
