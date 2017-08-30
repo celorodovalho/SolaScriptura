@@ -25,7 +25,6 @@ class AbstractCommand extends Command
             $newUser->last_name = $user->getLastName();
             $newUser->username = $user->getUsername();
             $newUser->language_code = $user->get('language_code');
-            $newUser->status = 1;
             if ($newUser->trashed()) {
                 $newUser->restore();
             } else {
