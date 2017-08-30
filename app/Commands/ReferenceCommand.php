@@ -5,9 +5,9 @@ namespace App\Commands;
 use Illuminate\Support\Facades\Log;
 use Telegram;
 use Telegram\Bot\Actions;
-use Telegram\Bot\Commands\Command;
+use Telegram\Bot\Exceptions\TelegramOtherException;
 
-class ReferenceCommand extends Command
+class ReferenceCommand extends AbstractCommand
 {
     /**
      * @var string Command Name
@@ -25,6 +25,7 @@ class ReferenceCommand extends Command
     public function handle($arguments)
     {
         try {
+            $this->checkPermission();
             $arguments = trim($arguments);
             $versiculo = $arguments;
             $this->replyWithChatAction(['action' => Actions::TYPING]);
@@ -48,7 +49,7 @@ class ReferenceCommand extends Command
             $response = \App\Verses::ref('nvi', $book, $chapter, $verses);
 
             if (empty($response)) {
-                throw new Telegram\Bot\Exceptions\TelegramOtherException('Referencia nao encontrada.');
+                throw new TelegramOtherException('Referencia nao encontrada.');
             }
 
             $return = ['*' . $versiculo . '*' . "\r\n"];
@@ -60,12 +61,11 @@ class ReferenceCommand extends Command
                 'parse_mode' => 'Markdown',
                 'text' => implode($return),
             ]);
-        } catch (Telegram\Bot\Exceptions\TelegramOtherException $e) {
+        } catch (TelegramOtherException $e) {
             $this->replyWithMessage([
                 'parse_mode' => 'Markdown',
                 'text' => $e->getMessage()
             ]);
-            return null;
         } catch (\Exception $e) {
             $this->replyWithMessage([
                 'parse_mode' => 'Markdown',
@@ -76,32 +76,5 @@ class ReferenceCommand extends Command
             Log::info('ERRO2: ' . $e->getTraceAsString());
         }
         return null;
-    }
-
-    /**
-     * @param $url
-     * @param array $post
-     * @param array $get
-     * @return mixed
-     */
-    public function simpleCurl($url, $post = array(), $get = array())
-    {
-        $url = explode('?', $url, 2);
-        if (count($url) === 2) {
-            $tempGet = array();
-            parse_str($url[1], $tempGet);
-            $get = array_merge($get, $tempGet);
-        }
-        $url = $url[0] . ($get ? '?' . http_build_query($get) : '');
-        $chr = curl_init($url);
-
-        if ($post) {
-            curl_setopt($chr, CURLOPT_POST, 1);
-            curl_setopt($chr, CURLOPT_POSTFIELDS, json_encode($post));
-        }
-
-        curl_setopt($chr, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
-        curl_setopt($chr, CURLOPT_RETURNTRANSFER, true);
-        return curl_exec($chr);
     }
 }

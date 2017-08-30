@@ -96,6 +96,7 @@ class DefaultController extends Controller
 
     public function test(Request $request)
     {
+        try {
 
 //        dump($dbt->getLibraryVerseinfo('ENGKJVC1DA', 'Gen', '1', '1', '2')); //getVerseStart($damId, $bookId, $chapterId)
 
@@ -103,6 +104,21 @@ class DefaultController extends Controller
 //        $book = \App\Verses::find(1)->books()->where('abbrev', 'gn')->first(); //
 //        App\Post::find(1)->comments()->where('title', 'foo')->first();
 //        dump($book);
+            $user = \App\Users::withTrashed()->where(['telegram_id' => 654564])->first();
+//        $users->delete();
+//        Users::where();//
+//            if ($user->trashed()) {
+//                $user->first_name = 'Tsdfeste';
+//                $user->restore();
+//            } else {
+//                $user->save();
+//            }
+            dump($user);
+            dump($user->trashed());
+        } catch (\Exception $e) {
+            dump($e);
+        }
+
         die;
     }
 }

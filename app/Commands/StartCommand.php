@@ -2,11 +2,9 @@
 
 namespace App\Commands;
 
-use App\Users;
 use Telegram\Bot\Actions;
-use Telegram\Bot\Commands\Command;
 
-class StartCommand extends Command
+class StartCommand extends AbstractCommand
 {
     /**
      * @var string Command Name
@@ -45,20 +43,8 @@ class StartCommand extends Command
         // Reply with the commands list
         $this->replyWithMessage(['text' => $response]);
 
-        try {
-            /* {"id":144068960,"is_bot":false,"first_name":"Seasky","username":"se45ky","language_code":"pt-BR"} */
-            $user = $this->getUpdate()->getMessage()->getFrom();
-            $newUser = Users::firstOrNew(['telegram_id' => $user->getId()]);
-            $newUser->is_bot = $user->get('is_bot');
-            $newUser->first_name = $user->getFirstName();
-            $newUser->username = $user->getUsername();
-            $newUser->language_code = $user->get('language_code');
-            $newUser->save();
-        } catch (\Exception $e) {
-            $this->replyWithMessage(['text' => $e->getMessage()]);
-        }
-
-
+        $this->enableUser();
+        $this->setVersion();
 
         // Trigger another command dynamically from within this command
         // When you want to chain multiple commands within one or process the request further.
@@ -66,5 +52,10 @@ class StartCommand extends Command
         // it'll pass the same arguments that are received for this command originally.
         $this->triggerCommand('subscribe');
 //        $this->triggerCommand('help');
+    }
+
+    public function setVersion()
+    {
+
     }
 }

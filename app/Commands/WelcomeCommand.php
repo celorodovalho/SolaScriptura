@@ -3,12 +3,11 @@
 namespace App\Commands;
 
 use Telegram;
-use Telegram\Bot\Commands\Command;
 
 /**
  * Class HelpCommand.
  */
-class WelcomeCommand extends Command
+class WelcomeCommand extends AbstractCommand
 {
     /**
      * @var string Command Name
