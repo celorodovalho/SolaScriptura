@@ -56,6 +56,32 @@ class StartCommand extends AbstractCommand
 
     public function setVersion()
     {
+        $keyboard = ['inline_keyboard' => [
+            [[
+                'text' => 'PT-BR - AA - Almeida & Atualizada', 'callback_data' => '/setVersion aa'
+            ]],
+            [[
+                'text' => 'PT-BR - NVI - Nova Versao Internacional', 'callback_data' => '/setVersion nvi'
+            ]],
+            [[
+                'text' => 'PT-BR - ACF - Almeida Corrigida Fiel', 'callback_data' => '/setVersion acf'
+            ]],
+            [[
+                'text' => 'EN-EN - KJV - King James Version', 'callback_data' => '/setVersion acf'
+            ]],
+            [[
+                'text' => 'EN-EN - BBE - Basic English', 'callback_data' => '/setVersion bbe'
+            ]],
+            [[
+                'text' => 'ES-ES - RVR - Reina Valera', 'callback_data' => '/setVersion rvr'
+            ]],
+        ]];
 
+        $reply_markup = json_encode($keyboard);
+        $this->replyWithMessage([
+            'parse_mode' => 'Markdown',
+            'text' => 'Selecione sua versao biblica de preferencia:',
+            'reply_markup' => $reply_markup
+        ]);
     }
 }
