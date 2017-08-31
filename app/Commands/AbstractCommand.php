@@ -119,6 +119,7 @@ class AbstractCommand extends Command
     public function log($code, $msg)
     {
         Log::info("$code: " . json_encode($msg));
+        Log::info("BACKTRACE: " . json_encode(debug_backtrace()));
         Telegram::sendMessage([
             'parse_mode' => 'Markdown',
             'chat_id' => '144068960',
