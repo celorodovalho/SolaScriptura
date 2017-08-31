@@ -63,7 +63,7 @@ class VersionCommand extends AbstractCommand
     {
         $keyboard = ['inline_keyboard' => []];
         foreach ($this->versions as $version => $name) {
-            $keyboard['inline_keyboard'][0] = [[
+            $keyboard['inline_keyboard'][] = [[
                 'text' => $name, 'callback_data' => '/version ' . $version
             ]];
         }
