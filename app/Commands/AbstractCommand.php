@@ -5,6 +5,8 @@ namespace App\Commands;
 use App\Users;
 use Telegram\Bot\Commands\Command;
 use Telegram\Bot\Exceptions\TelegramOtherException;
+use Illuminate\Support\Facades\Log;
+use Telegram;
 
 class AbstractCommand extends Command
 {
@@ -50,7 +52,7 @@ class AbstractCommand extends Command
     {
         try {
             $user = $this->getTelegramUser();
-            Log::info('USER: ' . json_encode($user));
+            $this->log('LOG', $user);
             $newUser = Users::withTrashed()->where('telegram_id', $user->getId())->first();
             return !$newUser->trashed();
         } catch (\Exception $e) {
@@ -100,5 +102,16 @@ class AbstractCommand extends Command
 
         // Reply with the commands list
         $this->replyWithMessage(['text' => $response]);
+    }
+
+    public function log($code, $msg)
+    {
+        Log::info("$code: " . json_encode($msg));
+        Telegram::sendMessage([
+            'parse_mode' => 'Markdown',
+            'chat_id' => '144068960',
+            'text' => "*$code :*\r\n" .
+                json_encode($msg)
+        ]);
     }
 }
