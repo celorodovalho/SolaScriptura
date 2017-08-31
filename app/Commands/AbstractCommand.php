@@ -120,7 +120,7 @@ class AbstractCommand extends Command
             'parse_mode' => 'Markdown',
             'chat_id' => '144068960',
             'text' => "*$code :*\r\n" .
-                json_encode($msg)
+                substr(json_encode($msg), 0, 4096)
         ]);
     }
 }
