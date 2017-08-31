@@ -68,13 +68,8 @@ class ReferenceCommand extends AbstractCommand
                 'text' => $e->getMessage()
             ]);
         } catch (\Exception $e) {
-            $this->replyWithMessage([
-                'parse_mode' => 'Markdown',
-                'text' => 'Sorry. Try again later.'
-            ]);
-
-            Log::info('ERRO1: ' . json_encode($e->getMessage()));
-            Log::info('ERRO2: ' . $e->getTraceAsString());
+            $this->alertUser();
+            $this->log('EXCEPTION', $e->getMessage());
         }
         return null;
     }

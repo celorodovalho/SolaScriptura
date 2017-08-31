@@ -33,7 +33,8 @@ class AbstractCommand extends Command
                 $newUser->save();
             }
         } catch (\Exception $e) {
-            $this->replyWithMessage(['text' => $e->getMessage()]);
+            $this->alertUser();
+            $this->log('EXCEPTION', $e->getMessage());
         }
     }
 
@@ -44,7 +45,8 @@ class AbstractCommand extends Command
             $newUser = Users::withTrashed()->where('telegram_id', $user->getId())->first();
             $newUser->delete();
         } catch (\Exception $e) {
-            $this->replyWithMessage(['text' => $e->getMessage()]);
+            $this->alertUser();
+            $this->log('EXCEPTION', $e->getMessage());
         }
     }
 
@@ -57,7 +59,8 @@ class AbstractCommand extends Command
             $newUser = Users::withTrashed()->where('telegram_id', $user->getId())->first();
             return !$newUser->trashed();
         } catch (\Exception $e) {
-            $this->replyWithMessage(['text' => $e->getMessage()]);
+            $this->alertUser();
+            $this->log('EXCEPTION', $e->getMessage());
         }
         return false;
     }
@@ -121,6 +124,14 @@ class AbstractCommand extends Command
             'chat_id' => '144068960',
             'text' => "*$code :*\r\n" .
                 substr(json_encode($msg), 0, 4096)
+        ]);
+    }
+
+    public function alertUser()
+    {
+        $this->replyWithMessage([
+            'parse_mode' => 'Markdown',
+            'text' => 'Um erro inesperado aconteceu, contacte: @se45ky'
         ]);
     }
 }

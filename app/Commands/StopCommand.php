@@ -30,10 +30,8 @@ class StopCommand extends AbstractCommand
             $this->disableUser();
             $this->replyWithMessage(['text' => "Para ativar o Bot novamente, use o comando /start"]);
         } catch (TelegramOtherException $e) {
-            $this->replyWithMessage([
-                'parse_mode' => 'Markdown',
-                'text' => $e->getMessage()
-            ]);
+            $this->alertUser();
+            $this->log('EXCEPTION', $e->getMessage());
         }
     }
 }

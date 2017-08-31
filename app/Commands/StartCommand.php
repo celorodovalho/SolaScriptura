@@ -43,10 +43,8 @@ class StartCommand extends AbstractCommand
             $this->triggerCommand('subscribe');
             $this->triggerCommand('version');
         } catch (\Exception $e) {
-            $this->replyWithMessage([
-                'parse_mode' => 'Markdown',
-                'text' => $e->getMessage()
-            ]);
+            $this->alertUser();
+            $this->log('EXCEPTION', $e->getMessage());
         }
     }
 }
