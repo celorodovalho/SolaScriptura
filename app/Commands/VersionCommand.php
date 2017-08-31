@@ -30,7 +30,7 @@ class VersionCommand extends AbstractCommand
             } else {
                 $this->listVersion();
             }
-        } catch (TelegramOtherException $e) {
+        } catch (\Exception $e) {
             $this->replyWithMessage([
                 'parse_mode' => 'Markdown',
                 'text' => $e->getMessage()

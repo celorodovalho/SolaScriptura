@@ -53,6 +53,7 @@ class AbstractCommand extends Command
         try {
             $user = $this->getTelegramUser();
             $this->log('LOG', $user);
+            $this->log('UPDATE', $this->getUpdate());
             $newUser = Users::withTrashed()->where('telegram_id', $user->getId())->first();
             return !$newUser->trashed();
         } catch (\Exception $e) {
@@ -75,7 +76,10 @@ class AbstractCommand extends Command
 
     public function getTelegramUser()
     {
-        return $this->getUpdate()->getMessage()->getFrom();
+        $user = $this->getUpdate()->getMessage()->getFrom();
+        if(!$user->get('is_bot')) {
+            return $user;
+        }
     }
 
     /**
