@@ -78,10 +78,12 @@ class AbstractCommand extends Command
     {
         $update = $this->getUpdate();
         $user = $update->get('from');
-        $this->log('FROM', $user);
         if (!$user) {
             $user = $update->getMessage()->getFrom();
+        } else {
+            $user = new Telegram\Bot\Objects\User($user);
         }
+        $this->log('FROM', $user);
         return $user;
     }
 
