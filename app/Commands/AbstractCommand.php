@@ -50,6 +50,7 @@ class AbstractCommand extends Command
     {
         try {
             $user = $this->getTelegramUser();
+            Log::info('USER: ' . json_encode($user));
             $newUser = Users::withTrashed()->where('telegram_id', $user->getId())->first();
             return !$newUser->trashed();
         } catch (\Exception $e) {
