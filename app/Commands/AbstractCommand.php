@@ -54,8 +54,6 @@ class AbstractCommand extends Command
     {
         try {
             $user = $this->getTelegramUser();
-            $this->log('LOG', $user);
-            $this->log('UPDATE', $this->getUpdate());
             $newUser = Users::withTrashed()->where('telegram_id', $user->getId())->first();
             return !$newUser->trashed();
         } catch (\Exception $e) {
@@ -86,7 +84,6 @@ class AbstractCommand extends Command
         } else {
             $user = new Telegram\Bot\Objects\User($user);
         }
-        $this->log('FROM', $user);
         return $user;
     }
 
@@ -121,9 +118,8 @@ class AbstractCommand extends Command
         Log::info("$code: " . json_encode($msg));
         Log::info("BACKTRACE: " . json_encode(debug_backtrace()));
         Telegram::sendMessage([
-//            'parse_mode' => 'Markdown',
             'chat_id' => '144068960',
-            'text' => "*$code :*\r\n" .
+            'text' => "$code:\r\n" .
                 substr(json_encode($msg), 0, 4096)
         ]);
     }

@@ -13,6 +13,18 @@ class VersionCommand extends AbstractCommand
     protected $name = "version";
 
     /**
+     * @var array
+     */
+    protected $versions = [
+        'aa' => 'AA - Almeida & Atualizada',
+        'nvi' => 'NVI - Nova Versao Internacional',
+        'acf' => 'ACF - Almeida Corrigida Fiel',
+        'kjv' => 'KJV - King James Version',
+        'bbe' => 'BBE - Basic English',
+        'rvr' => 'RVR - Reina Valera',
+    ];
+
+    /**
      * @var string Command Description
      */
     protected $description = "Para escolher a versao";
@@ -27,6 +39,10 @@ class VersionCommand extends AbstractCommand
             $this->replyWithChatAction(['action' => Actions::TYPING]);
             if (!empty($arguments)) {
                 $this->setVersion($arguments);
+                $this->replyWithMessage([
+                    'parse_mode' => 'Markdown',
+                    'text' => 'Versao "' . $this->versions[$arguments] . '" selecionada.',
+                ]);
             } else {
                 $this->listVersion();
             }
@@ -45,26 +61,12 @@ class VersionCommand extends AbstractCommand
 
     public function listVersion()
     {
-        $keyboard = ['inline_keyboard' => [
-            [[
-                'text' => 'AA - Almeida & Atualizada', 'callback_data' => '/version aa'
-            ]],
-            [[
-                'text' => 'NVI - Nova Versao Internacional', 'callback_data' => '/version nvi'
-            ]],
-            [[
-                'text' => 'ACF - Almeida Corrigida Fiel', 'callback_data' => '/version acf'
-            ]],
-            [[
-                'text' => 'KJV - King James Version', 'callback_data' => '/version acf'
-            ]],
-            [[
-                'text' => 'BBE - Basic English', 'callback_data' => '/version bbe'
-            ]],
-            [[
-                'text' => 'RVR - Reina Valera', 'callback_data' => '/version rvr'
-            ]],
-        ]];
+        $keyboard = ['inline_keyboard' => []];
+        foreach ($this->versions as $version => $name) {
+            $keyboard['inline_keyboard'][0] = [[
+                'text' => $name, 'callback_data' => '/version ' . $version
+            ]];
+        }
 
         $replyMarkup = json_encode($keyboard);
         $this->replyWithMessage([
