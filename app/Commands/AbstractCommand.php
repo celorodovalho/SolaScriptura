@@ -76,10 +76,13 @@ class AbstractCommand extends Command
 
     public function getTelegramUser()
     {
-        $user = $this->getUpdate()->getMessage()->getFrom();
-        if(!$user->get('is_bot')) {
-            return $user;
+        $update = $this->getUpdate();
+        $user = $update->get('from');
+        $this->log('FROM', $user);
+        if (!$user) {
+            $user = $update->getMessage()->getFrom();
         }
+        return $user;
     }
 
     /**
