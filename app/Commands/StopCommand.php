@@ -15,7 +15,7 @@ class StopCommand extends AbstractCommand
     /**
      * @var string Command Description
      */
-    protected $description = "Comando para parar o Bot";
+    protected $description = "Para parar o Bot";
 
     /**
      * @inheritdoc

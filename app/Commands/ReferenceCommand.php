@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Verses;
 use Illuminate\Support\Facades\Log;
 use Telegram;
 use Telegram\Bot\Actions;
@@ -46,7 +47,7 @@ class ReferenceCommand extends AbstractCommand
             $verses = $chapter[1];
             $chapter = $chapter[0];
 
-            $response = \App\Verses::ref('nvi', $book, $chapter, $verses);
+            $response = Verses::ref('nvi', $book, $chapter, $verses);
 
             if (empty($response)) {
                 throw new TelegramOtherException('Referencia nao encontrada.');

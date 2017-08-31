@@ -23,7 +23,7 @@ class Users extends Model
     /**
      * @var array
      */
-    protected $fillable = ['telegram_id', 'is_bot', 'first_name', 'username', 'language_code'];
+    protected $fillable = ['telegram_id', 'is_bot', 'first_name', 'last_name', 'username', 'language_code', 'version'];
 
     /**
      * The attributes that should be mutated to dates.
