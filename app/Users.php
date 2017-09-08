@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $first_name
  * @property string $username
  * @property string $language_code
+ * @property string $version
  */
 class Users extends Model
 {

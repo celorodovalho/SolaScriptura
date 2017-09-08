@@ -30,7 +30,7 @@ class StartCommand extends AbstractCommand
             $this->replyWithChatAction(['action' => Actions::TYPING]);
 
             $this->replyWithMessage([
-                'text' => "Olá" . $name . '! Bem-vindo ao nosso bot! Aqui estão os nossos comandos:'
+                'text' => "Olá " . $name . '! Bem-vindo ao nosso bot! Aqui estão os nossos comandos:'
             ]);
 
             $this->listCommands();

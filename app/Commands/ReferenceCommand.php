@@ -47,7 +47,13 @@ class ReferenceCommand extends AbstractCommand
             $verses = $chapter[1];
             $chapter = $chapter[0];
 
-            $response = Verses::ref('nvi', $book, $chapter, $verses);
+            $user = $this->getUser();
+            if (!$user->version) {
+                $this->triggerCommand('version');
+                throw new TelegramOtherException('Primeiro voce deve informar sua versao.');
+            }
+
+            $response = Verses::ref($user->version, $book, $chapter, $verses);
 
             if (empty($response)) {
                 throw new TelegramOtherException('Referencia nao encontrada.');
