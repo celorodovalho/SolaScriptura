@@ -59,7 +59,7 @@ return [
 //        App\Commands\HelpCommand::class,
         App\Commands\StartCommand::class,
         App\Commands\StopCommand::class,
-        App\Commands\StopCommand::class,
+        App\Commands\ReferenceCommand::class,
         App\Commands\VersionCommand::class,
 //        App\Commands\OnlineCommand::class,
 //        App\Commands\DexCommand::class,
