@@ -49,8 +49,7 @@ class ReferenceCommand extends AbstractCommand
 
             $user = $this->getUser();
             if (!$user->version) {
-                $this->triggerCommand('version');
-                throw new TelegramOtherException('Primeiro voce deve informar sua versao.');
+                throw new \Exception('Primeiro voce deve informar sua versao.', 10001);
             }
 
             $response = Verses::ref($user->version, $book, $chapter, $verses);
@@ -74,8 +73,19 @@ class ReferenceCommand extends AbstractCommand
                 'text' => $e->getMessage()
             ]);
         } catch (\Exception $e) {
-            $this->alertUser();
-            $this->log('EXCEPTION', $e->getMessage());
+            switch ($e->getCode()) {
+                case 10001:
+                    $this->replyWithMessage([
+                        'parse_mode' => 'Markdown',
+                        'text' => $e->getMessage()
+                    ]);
+                    $this->triggerCommand('version');
+                    break;
+                default:
+                    $this->alertUser();
+                    $this->log('EXCEPTION', $e->getMessage());
+            }
+
         }
         return null;
     }
