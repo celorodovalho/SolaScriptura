@@ -22,6 +22,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/getWebhookInfo', 'Bot\DefaultController@getWebhookInfo');
     Route::get('/getMe', 'Bot\DefaultController@getMe');
     Route::any('/sendMessage', 'Bot\DefaultController@sendMessage');
+    Route::any('/sendMessageEverybody', 'Bot\DefaultController@sendMessageEverybody');
 
     //API
     Route::any('/test', 'Bot\DefaultController@test');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Bot;
 
 use App\Http\Controllers\Controller;
+use App\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Telegram;
@@ -89,6 +90,21 @@ class DefaultController extends Controller
                 'parse_mode' => 'Markdown',
                 'chat_id' => '-201366561',
                 'text' => implode("\r\n\r\n", $arrBody)
+            ]);
+        }
+        die;
+    }
+
+
+    public function sendMessageEverybody(Request $request)
+    {
+        $users = Users::all();
+        foreach ($users as $user) {
+            Telegram::sendMessage([
+                'parse_mode' => 'Markdown',
+                'chat_id' => $user->telegram_id,
+                'text' => 'Ola, estamos com algumas atualizacoes. Vc pode conferir no comando /start. O comando /ref ' .
+                    'nao estava disponivel na ultima semana, pedimos desculpas.'
             ]);
         }
         die;
