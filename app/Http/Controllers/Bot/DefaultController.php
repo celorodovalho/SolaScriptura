@@ -100,12 +100,15 @@ class DefaultController extends Controller
     {
         $users = Users::all();
         foreach ($users as $user) {
-            Telegram::sendMessage([
-                'parse_mode' => 'Markdown',
-                'chat_id' => $user->telegram_id,
-                'text' => 'Ola, estamos com algumas atualizacoes. Vc pode conferir no comando /start. O comando /ref ' .
-                    'nao estava disponivel na ultima semana, pedimos desculpas.'
-            ]);
+            try {
+                Telegram::sendMessage([
+                    'parse_mode' => 'Markdown',
+                    'chat_id' => $user->telegram_id,
+                    'text' => 'Ola, estamos com algumas atualizacoes. Vc pode conferir no comando /start. O comando /ref ' .
+                        'nao estava disponivel na ultima semana, pedimos desculpas.'
+                ]);
+            } catch (\Exception $e) {
+            }
         }
         die;
     }
