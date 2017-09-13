@@ -89,14 +89,15 @@ class ReferenceCommand extends AbstractCommand
             if ($callbackQuery) {
                 $message = $callbackQuery->getMessage();
 //                $message = $this->getUpdate()->getMessage();
-                $updateMessage = [
-                    'chat_id' => $message->getChat()->getId(),
-                    'message_id' => $message->getMessageId(),
-                    'text' => implode($return),
-                    'parse_mode' => 'Markdown',
-                    'reply_markup' => $replyMarkup
-                ];
-                $this->editMessageText($updateMessage);
+                $this->log('lkajsdf', $message);
+//                $updateMessage = [
+//                    'chat_id' => $message->getChat()->getId(),
+//                    'message_id' => $message->getMessageId(),
+//                    'text' => implode($return),
+//                    'parse_mode' => 'Markdown',
+//                    'reply_markup' => $replyMarkup
+//                ];
+//                $this->editMessageText($updateMessage);
             } else {
                 $this->replyWithMessage([
                     'parse_mode' => 'Markdown',
