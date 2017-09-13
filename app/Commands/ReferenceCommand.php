@@ -51,8 +51,8 @@ class ReferenceCommand extends AbstractCommand
             $versiculo = $arguments[0] . ' ' . $arguments[1];
 
             $originalUpdate = Telegram::commandsHandler(true);
-            $callbackQuery = $originalUpdate->get('callback_query');
-            $this->replyWithMessage([
+//            $callbackQuery = $originalUpdate->get('callback_query');
+            return $this->replyWithMessage([
                 'parse_mode' => 'Markdown',
                 'text' => json_encode($originalUpdate),
             ]);
