@@ -50,6 +50,9 @@ class ReferenceCommand extends AbstractCommand
             $versions = VersionCommand::$versions;
             $versiculo = $arguments[0] . ' ' . $arguments[1];
 
+            $originalUpdate = Telegram::commandsHandler(true);
+            $callbackQuery = $originalUpdate->get('callback_query');
+
             if (empty($version)) {
                 $user = $this->getUser();
                 if (!$user->version) {
@@ -76,19 +79,6 @@ class ReferenceCommand extends AbstractCommand
             }
 
             $inlineKeyboard = ['inline_keyboard' => []];
-//                [[
-//                    'text' => 'Moves', 'callback_data' => '/poke moves ' . $pokemon['id']
-//                ]],
-//                [[
-//                    'text' => 'Formas', 'callback_data' => '/poke forms ' . $pokemon['id']
-//                ]],
-////                [[
-////                    'text' => 'Espécies', 'callback_data' => '/poke species ' . $pokemon['id']
-////                ]],
-//                [[
-//                    'text' => 'Evoluções', 'callback_data' => '/poke evolution ' . $pokemon['id']
-//                ]],
-//            ]];
             foreach ($versions as $key => $desc) {
                 $inlineKeyboard['inline_keyboard'][] = [[
                     'text' => $desc, 'callback_data' => '/ref ' . $versiculo . ' ' . $key
@@ -96,11 +86,25 @@ class ReferenceCommand extends AbstractCommand
             }
 
             $replyMarkup = json_encode($inlineKeyboard);
-            $this->replyWithMessage([
-                'parse_mode' => 'Markdown',
-                'text' => implode($return),
-                'reply_markup' => $replyMarkup
-            ]);
+            if ($callbackQuery) {
+                $message = $callbackQuery->getMessage();
+//                $message = $this->getUpdate()->getMessage();
+                $updateMessage = [
+                    'chat_id' => $message->getChat()->getId(),
+                    'message_id' => $message->getMessageId(),
+                    'text' => implode($return),
+                    'parse_mode' => 'Markdown',
+                    'reply_markup' => $replyMarkup
+                ];
+                $this->editMessageText($updateMessage);
+            } else {
+                $this->replyWithMessage([
+                    'parse_mode' => 'Markdown',
+                    'text' => implode($return),
+                    'reply_markup' => $replyMarkup
+                ]);
+            }
+
         } catch (TelegramOtherException $e) {
             $this->replyWithMessage([
                 'parse_mode' => 'Markdown',
