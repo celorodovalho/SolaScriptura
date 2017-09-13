@@ -26,11 +26,6 @@ class ReferenceCommand extends AbstractCommand
     public function handle($arguments)
     {
         try {
-            return $this->replyWithMessage([
-                'parse_mode' => 'Markdown',
-                'text' => __CLASS__,
-            ]);
-
             $this->checkPermission();
             $arguments = trim($arguments);
             $versiculo = $arguments;
@@ -95,6 +90,9 @@ class ReferenceCommand extends AbstractCommand
                 $message = $callbackQuery->getMessage();
 //                $message = $this->getUpdate()->getMessage();
                 $this->log('lkajsdf', $message);
+                $this->replyWithMessage([
+                    'text' => 'teste',
+                ]);
 //                $updateMessage = [
 //                    'chat_id' => $message->getChat()->getId(),
 //                    'message_id' => $message->getMessageId(),
