@@ -46,7 +46,7 @@ class ReferenceCommand extends AbstractCommand
             $chapter = explode(':', $chapter);
             $verses = $chapter[1];
             $chapter = $chapter[0];
-            $version = $arguments[2];
+            $version = isset($arguments[2]) ? $arguments[2] : null;
             $versions = VersionCommand::$versions;
             $versiculo = $arguments[0] . ' ' . $arguments[1];
 
