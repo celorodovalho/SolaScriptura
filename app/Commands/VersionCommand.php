@@ -15,7 +15,7 @@ class VersionCommand extends AbstractCommand
     /**
      * @var array
      */
-    protected $versions = [
+    public static $versions = [
         'aa' => 'AA - Almeida & Atualizada',
         'nvi' => 'NVI - Nova Versao Internacional',
         'acf' => 'ACF - Almeida Corrigida Fiel',
@@ -41,7 +41,7 @@ class VersionCommand extends AbstractCommand
                 $this->setVersion($arguments);
                 $this->replyWithMessage([
                     'parse_mode' => 'Markdown',
-                    'text' => 'Versao "' . $this->versions[$arguments] . '" selecionada.',
+                    'text' => 'Versao "' . self::$versions[$arguments] . '" selecionada.',
                 ]);
             } else {
                 $this->listVersion();
@@ -62,7 +62,7 @@ class VersionCommand extends AbstractCommand
     public function listVersion()
     {
         $keyboard = ['inline_keyboard' => []];
-        foreach ($this->versions as $version => $name) {
+        foreach (self::$versions as $version => $name) {
             $keyboard['inline_keyboard'][] = [[
                 'text' => $name, 'callback_data' => '/version ' . $version
             ]];

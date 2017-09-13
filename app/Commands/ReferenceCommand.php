@@ -46,23 +46,56 @@ class ReferenceCommand extends AbstractCommand
             $chapter = explode(':', $chapter);
             $verses = $chapter[1];
             $chapter = $chapter[0];
+            $version = $arguments[2];
+            $versions = VersionCommand::$versions;
+            $versiculo = $arguments[0] . ' ' . $arguments[1];
 
-            $user = $this->getUser();
-            if (!$user->version) {
-                throw new \Exception('Primeiro voce deve informar sua versao.', 10001);
+            if (empty($version)) {
+                $user = $this->getUser();
+                if (!$user->version) {
+                    throw new \Exception('Primeiro voce deve informar sua versao.', 10001);
+                } else {
+                    $version = $user->version;
+                }
+            } else {
+                $version = strtolower($version);
+                if (!array_key_exists($version, $versions)) {
+                    throw new \Exception('Primeiro voce deve informar sua versao.', 10001);
+                }
             }
 
-            $response = Verses::ref($user->version, $book, $chapter, $verses);
+            $response = Verses::ref($version, $book, $chapter, $verses);
 
             if (empty($response)) {
                 throw new TelegramOtherException('Referencia nao encontrada.');
             }
 
-            $return = ['*' . $versiculo . '*' . "\r\n"];
+            $return = ['*' . $versiculo . ' [' . strtoupper($version) . ']*' . "\r\n"];
             foreach ($response as $verse) {
                 $return[] = '*' . $verse['verse'] . ')* ' . html_entity_decode(trim($verse['text'])) . "\r\n";
             }
 
+            $inlineKeyboard = ['inline_keyboard' => []];
+//                [[
+//                    'text' => 'Moves', 'callback_data' => '/poke moves ' . $pokemon['id']
+//                ]],
+//                [[
+//                    'text' => 'Formas', 'callback_data' => '/poke forms ' . $pokemon['id']
+//                ]],
+////                [[
+////                    'text' => 'Espécies', 'callback_data' => '/poke species ' . $pokemon['id']
+////                ]],
+//                [[
+//                    'text' => 'Evoluções', 'callback_data' => '/poke evolution ' . $pokemon['id']
+//                ]],
+//            ]];
+            foreach ($versions as $key => $desc) {
+                $inlineKeyboard['inline_keyboard'][] = [[
+                    'text' => $desc, 'callback_data' => '/ref ' . $versiculo . ' ' . $key
+                ]];
+            }
+
+            $replyMarkup = json_encode($inlineKeyboard);
             $this->replyWithMessage([
                 'parse_mode' => 'Markdown',
                 'text' => implode($return),
@@ -70,7 +103,8 @@ class ReferenceCommand extends AbstractCommand
         } catch (TelegramOtherException $e) {
             $this->replyWithMessage([
                 'parse_mode' => 'Markdown',
-                'text' => $e->getMessage()
+                'text' => $e->getMessage(),
+                'reply_markup' => $replyMarkup
             ]);
         } catch (\Exception $e) {
             switch ($e->getCode()) {
