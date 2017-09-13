@@ -52,6 +52,14 @@ class ReferenceCommand extends AbstractCommand
 
             $originalUpdate = Telegram::commandsHandler(true);
             $callbackQuery = $originalUpdate->get('callback_query');
+            $this->replyWithMessage([
+                'parse_mode' => 'Markdown',
+                'text' => json_encode($originalUpdate),
+            ]);
+            return $this->replyWithMessage([
+                'parse_mode' => 'Markdown',
+                'text' => json_encode($callbackQuery),
+            ]);
 
             if (empty($version)) {
                 $user = $this->getUser();
