@@ -99,12 +99,12 @@ class ReferenceCommand extends AbstractCommand
             $this->replyWithMessage([
                 'parse_mode' => 'Markdown',
                 'text' => implode($return),
+                'reply_markup' => $replyMarkup
             ]);
         } catch (TelegramOtherException $e) {
             $this->replyWithMessage([
                 'parse_mode' => 'Markdown',
-                'text' => $e->getMessage(),
-                'reply_markup' => $replyMarkup
+                'text' => $e->getMessage()
             ]);
         } catch (\Exception $e) {
             switch ($e->getCode()) {
