@@ -26,6 +26,11 @@ class ReferenceCommand extends AbstractCommand
     public function handle($arguments)
     {
         try {
+            return $this->replyWithMessage([
+                'parse_mode' => 'Markdown',
+                'text' => __CLASS__,
+            ]);
+
             $this->checkPermission();
             $arguments = trim($arguments);
             $versiculo = $arguments;
