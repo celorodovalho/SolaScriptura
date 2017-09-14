@@ -123,7 +123,7 @@ class DefaultController extends Controller
 //        $book = \App\Verses::find(1)->books()->where('abbrev', 'gn')->first(); //
 //        App\Post::find(1)->comments()->where('title', 'foo')->first();
 //        dump($book);
-            $user = \App\Users::withTrashed()->where(['telegram_id' => 654564])->first();
+//            $user = \App\Users::withTrashed()->where(['telegram_id' => 654564])->first();
 //        $users->delete();
 //        Users::where();//
 //            if ($user->trashed()) {
@@ -132,8 +132,10 @@ class DefaultController extends Controller
 //            } else {
 //                $user->save();
 //            }
-            dump($user);
-            dump($user->trashed());
+            $originalUpdate = Telegram::commandsHandler(true);
+            $callbackQuery = $originalUpdate->get('callback_query');
+            dump($callbackQuery);
+//            dump($user->trashed());
         } catch (\Exception $e) {
             dump($e);
         }

@@ -50,16 +50,16 @@ class ReferenceCommand extends AbstractCommand
             $versions = VersionCommand::$versions;
             $versiculo = $arguments[0] . ' ' . $arguments[1];
 
-            $originalUpdate = Telegram::commandsHandler(true);
-//            $callbackQuery = $originalUpdate->get('callback_query');
-            return $this->replyWithMessage([
-                'parse_mode' => 'Markdown',
-                'text' => json_encode($originalUpdate),
-            ]);
-            return $this->replyWithMessage([
-                'parse_mode' => 'Markdown',
-                'text' => json_encode($callbackQuery),
-            ]);
+//             $originalUpdate = Telegram::commandsHandler(true);
+//             $callbackQuery = $originalUpdate->get('callback_query');
+//             $this->replyWithMessage([
+//                 'parse_mode' => 'Markdown',
+//                 'text' => json_encode($originalUpdate),
+//             ]);
+//             return $this->replyWithMessage([
+//                 'parse_mode' => 'Markdown',
+//                 'text' => json_encode($callbackQuery),
+//             ]);
 
             if (empty($version)) {
                 $user = $this->getUser();
@@ -94,28 +94,28 @@ class ReferenceCommand extends AbstractCommand
             }
 
             $replyMarkup = json_encode($inlineKeyboard);
-            if ($callbackQuery) {
-                $message = $callbackQuery->getMessage();
-//                $message = $this->getUpdate()->getMessage();
-                $this->log('lkajsdf', $message);
-                $this->replyWithMessage([
-                    'text' => 'teste',
-                ]);
-//                $updateMessage = [
-//                    'chat_id' => $message->getChat()->getId(),
-//                    'message_id' => $message->getMessageId(),
-//                    'text' => implode($return),
-//                    'parse_mode' => 'Markdown',
-//                    'reply_markup' => $replyMarkup
-//                ];
-//                $this->editMessageText($updateMessage);
-            } else {
-                $this->replyWithMessage([
-                    'parse_mode' => 'Markdown',
-                    'text' => implode($return),
-                    'reply_markup' => $replyMarkup
-                ]);
-            }
+//             if ($callbackQuery) {
+//                 $message = $callbackQuery->getMessage();
+// //                $message = $this->getUpdate()->getMessage();
+//                 $this->log('lkajsdf', $message);
+//                 $this->replyWithMessage([
+//                     'text' => 'teste',
+//                 ]);
+// //                $updateMessage = [
+// //                    'chat_id' => $message->getChat()->getId(),
+// //                    'message_id' => $message->getMessageId(),
+// //                    'text' => implode($return),
+// //                    'parse_mode' => 'Markdown',
+// //                    'reply_markup' => $replyMarkup
+// //                ];
+// //                $this->editMessageText($updateMessage);
+//             } else {
+            $this->replyWithMessage([
+                'parse_mode' => 'Markdown',
+                'text' => implode($return),
+                'reply_markup' => $replyMarkup
+            ]);
+//             }
 
         } catch (TelegramOtherException $e) {
             $this->replyWithMessage([
