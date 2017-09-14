@@ -108,7 +108,7 @@ class ReferenceCommand extends AbstractCommand
                     'parse_mode' => 'Markdown',
                     'reply_markup' => $replyMarkup
                 ];
-                $this->editMessageText($updateMessage);
+                Telegram::editMessageText($updateMessage);
             } else {
                 $this->replyWithMessage([
                     'parse_mode' => 'Markdown',
