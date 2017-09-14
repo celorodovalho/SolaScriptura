@@ -97,7 +97,7 @@ class ReferenceCommand extends AbstractCommand
             if (null === $update->getUpdateId()) {
                 $message = $update->getMessage();
                 //                $message = $this->getUpdate()->getMessage();
-                $this->log('lkajsdf', $message);
+//                $this->log('lkajsdf', $message);
 //                $this->replyWithMessage([
 //                    'text' => 'teste',
 //                ]);
