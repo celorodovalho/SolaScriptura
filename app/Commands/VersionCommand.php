@@ -16,12 +16,12 @@ class VersionCommand extends AbstractCommand
      * @var array
      */
     public static $versions = [
-        'aa' => 'AA - Almeida & Atualizada',
-        'nvi' => 'NVI - Nova Versao Internacional',
-        'acf' => 'ACF - Almeida Corrigida Fiel',
-        'kjv' => 'KJV - King James Version',
-        'bbe' => 'BBE - Basic English',
-        'rvr' => 'RVR - Reina Valera',
+        'aa' => '📖 AA - Almeida & Atualizada',
+        'nvi' => '📖 NVI - Nova Versao Internacional',
+        'acf' => '📖 ACF - Almeida Corrigida Fiel',
+        'kjv' => '📖 KJV - King James Version',
+        'bbe' => '📖 BBE - Basic English',
+        'rvr' => '📖 RVR - Reina Valera',
     ];
 
     /**
