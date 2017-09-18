@@ -55,7 +55,9 @@ class AbstractCommand extends Command
         try {
             $user = $this->getTelegramUser();
             $newUser = Users::withTrashed()->where('telegram_id', $user->getId())->first();
-            return !$newUser->trashed();
+            if ($newUser) {
+                return !$newUser->trashed();
+            }
         } catch (\Exception $e) {
             $this->alertUser();
             $this->log('EXCEPTION', $e->getMessage());
