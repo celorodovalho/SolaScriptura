@@ -42,6 +42,8 @@ class CommandHandlerController extends Controller
                 $command = str_replace(['\/', '/'], '', $command);
                 $arguments = implode(' ', $arguments);
 
+                $callbackQuery = new Telegram\Bot\Objects\Update($callbackQuery);
+
                 return Telegram::getCommandBus()->execute($command, $arguments, $callbackQuery);
             }
             if ($message) {
