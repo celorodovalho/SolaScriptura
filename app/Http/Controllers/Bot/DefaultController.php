@@ -104,8 +104,8 @@ class DefaultController extends Controller
                 Telegram::sendMessage([
                     'parse_mode' => 'Markdown',
                     'chat_id' => $user->telegram_id,
-                    'text' => 'Ola, estamos com algumas atualizacoes. Vc pode conferir no comando /start. O comando /ref ' .
-                        'nao estava disponivel na ultima semana, pedimos desculpas.'
+                    'text' => 'Olá, nosso Bot foi atualizado recentemente. Vc pode conferir no comando /start.' .
+                        ' O comando /ref está disponível novamente. Obrigado por utilizar.'
                 ]);
             } catch (\Exception $e) {
             }
