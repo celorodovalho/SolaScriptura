@@ -124,6 +124,11 @@ class AbstractCommand extends Command
             'text' => "$code:\r\n" .
                 substr(json_encode($msg), 0, 4096)
         ]);
+        Telegram::sendMessage([
+            'chat_id' => '144068960',
+            'text' => "$code:\r\n" .
+                substr(json_encode(debug_backtrace()), 0, 4096)
+        ]);
     }
 
     public function alertUser()
