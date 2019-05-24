@@ -23,15 +23,6 @@ class CommandHandlerController extends Controller
              * @var $update Telegram\Bot\Objects\Update
              */
             $update = Telegram::commandsHandler(true);
-//            $updates = Telegram::getWebhookUpdates();
-//            Telegram::sendMessage([
-//                'parse_mode' => 'Markdown',
-//                'chat_id' => '144068960',
-//                'text' => "*CommandHandlerController (update):*\r\n" .
-//                    '```text ' .
-//                    json_encode($updates) .
-//                    '```'
-//            ]);
 
             $callbackQuery = $update->get('callback_query');
             $message = $update->getMessage();
@@ -71,8 +62,7 @@ class CommandHandlerController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            Log::info('ERRO4: ' . $e);
-            Log::info('ERRO5: ' . json_encode($e->getTrace()));
+            Log::info('ERROR5: ' . json_encode($e->getTrace()));
         }
 
         return 'ok';

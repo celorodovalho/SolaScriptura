@@ -27,10 +27,7 @@ class DefaultController extends Controller
      */
     public function setWebhook()
     {
-//        $response = Telegram::setWebhook(['url' => 'https://*****/'.env('TELEGRAM_BOT_TOKEN').'/webhook']);
-        $response = Telegram::setWebhook(['url' => secure_url('webhook')]);
-        //$update = Telegram::commandsHandler(true);
-        return $response;
+        return Telegram::setWebhook(['url' => secure_url('webhook')]);
     }
 
     /**
@@ -38,47 +35,12 @@ class DefaultController extends Controller
      */
     public function removeWebhook()
     {
-        $response = Telegram::removeWebhook();
-        dump($response);
-        return 'ok';
-    }
-
-    public function getUpdates()
-    {
-        $updates = Telegram::getUpdates();
-        dump($updates);
-        die;
+        Telegram::removeWebhook();
     }
 
     public function getWebhookInfo()
     {
         Telegram::commandsHandler(true);
-        $updates = Telegram::getWebhookInfo();
-        dump($updates);
-        die;
-    }
-
-    public function getMe()
-    {
-        dump(secure_url('webhook'));
-        $updates = Telegram::getMe();
-        dump($updates);
-
-        Telegram::sendMessage([
-            'parse_mode' => 'Markdown',
-            'chat_id' => '144068960',
-            'text' => '*UPDATE:*' . "\r\n" .
-                $updates->getId()
-        ]);
-
-        Telegram::sendMessage([
-            'parse_mode' => 'Markdown',
-            'chat_id' => '-201366561',
-            'text' => '*UPDATE:*' . "\r\n" .
-                $updates->getId()
-        ]);
-
-        die;
     }
 
     public function sendMessage(Request $request)
@@ -92,9 +54,8 @@ class DefaultController extends Controller
                 'text' => implode("\r\n\r\n", $arrBody)
             ]);
         }
-        die;
+        return null;
     }
-
 
     public function sendMessageEverybody(Request $request)
     {
@@ -110,36 +71,6 @@ class DefaultController extends Controller
             } catch (\Exception $e) {
             }
         }
-        die;
-    }
-
-    public function test(Request $request)
-    {
-        try {
-
-//        dump($dbt->getLibraryVerseinfo('ENGKJVC1DA', 'Gen', '1', '1', '2')); //getVerseStart($damId, $bookId, $chapterId)
-
-//        dump(654);die;
-//        $book = \App\Verses::find(1)->books()->where('abbrev', 'gn')->first(); //
-//        App\Post::find(1)->comments()->where('title', 'foo')->first();
-//        dump($book);
-//            $user = \App\Users::withTrashed()->where(['telegram_id' => 654564])->first();
-//        $users->delete();
-//        Users::where();//
-//            if ($user->trashed()) {
-//                $user->first_name = 'Tsdfeste';
-//                $user->restore();
-//            } else {
-//                $user->save();
-//            }
-            $originalUpdate = Telegram::commandsHandler(true);
-            $callbackQuery = $originalUpdate->get('callback_query');
-            dump($callbackQuery);
-//            dump($user->trashed());
-        } catch (\Exception $e) {
-            dump($e);
-        }
-
-        die;
+        return null;
     }
 }
