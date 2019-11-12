@@ -13,7 +13,7 @@
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "krlove/eloquent-model-generator": "^1.2",
-        "mockery/mockery": "0.9.*",
+        "mockery/mockery": "1.2.*",
         "orangehill/iseed": "^2.5",
         "phpunit/phpunit": "~5.7",
         "xethron/migrations-generator": "^2.0"
